@@ -2,13 +2,12 @@
   <div id="app">
     <h1>Todo app for studying vue</h1>
     <TodoMenu
-      :todoItems="todoItems"
-      :filterStatus="filterStatus"
+      :totalCount="totalCount"
       @changeFilterStatus="changeFilterStatus"
     />
     <TodoInput :pushTodo="pushTodo" />
     <TodoList
-      :todoItems="todoItems"
+      :todoItems="filteredTodoList"
       :filterStatus="filterStatus"
       @toggleTodo="toggleTodo"
       @deleteTodo="deleteTodo"
@@ -53,6 +52,18 @@ export default {
     },
     changeFilterStatus(status) {
       this.filterStatus = status;
+    },
+  },
+  computed: {
+    filteredTodoList() {
+      return this.todoItems.filter(
+        ({ isDone }) =>
+          this.filterStatus === "All" ||
+          (this.filterStatus === "Done") === isDone
+      );
+    },
+    totalCount() {
+      return this.filteredTodoList.length;
     },
   },
 };

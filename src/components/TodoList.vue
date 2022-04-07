@@ -1,7 +1,7 @@
 <template>
   <ul class="TodoList">
     <li
-      v-for="{ content, isDone, id } in filteredTodoList"
+      v-for="{ content, isDone, id } in todoItems"
       :key="id"
       :class="{ isDone }"
     >
@@ -19,7 +19,6 @@ export default {
   name: "TodoList",
   props: {
     todoItems: { type: Array },
-    filterStatus: { type: String },
   },
   methods: {
     toggleTodo(id) {
@@ -27,15 +26,6 @@ export default {
     },
     deleteTodo(id) {
       this.$emit("deleteTodo", id);
-    },
-  },
-  computed: {
-    filteredTodoList() {
-      return this.todoItems.filter(
-        ({ isDone }) =>
-          this.filterStatus === "All" ||
-          (this.filterStatus === "Done") === isDone
-      );
     },
   },
 };

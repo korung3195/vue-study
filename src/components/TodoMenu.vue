@@ -1,6 +1,6 @@
 <template>
   <div class="TodoMenu">
-    <div>Total : {{ count }}</div>
+    <div>Total : {{ totalCount }}</div>
     <div>
       <label for="todoFilter">Filter : </label>
       <select id="todoFilter" @change="changeFilterStatus">
@@ -16,21 +16,11 @@
 export default {
   name: "TodoMenu",
   props: {
-    todoItems: { type: Array },
-    filterStatus: { type: String },
+    totalCount: { type: Number },
   },
   methods: {
     changeFilterStatus({ target }) {
       this.$emit("changeFilterStatus", target.value);
-    },
-  },
-  computed: {
-    count() {
-      return this.todoItems.filter(
-        ({ isDone }) =>
-          this.filterStatus === "All" ||
-          (this.filterStatus === "Done") === isDone
-      ).length;
     },
   },
 };
