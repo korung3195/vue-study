@@ -4,8 +4,8 @@
     <TodoInput :pushTodo="pushTodo" />
     <TodoList
       :todoItems="todoItems"
-      :deleteTodo="deleteTodo"
-      :toggleTodo="toggleTodo"
+      @toggleTodo="toggleTodo"
+      @deleteTodo="deleteTodo"
     />
   </div>
 </template>

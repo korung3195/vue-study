@@ -19,8 +19,14 @@ export default {
   name: "TodoList",
   props: {
     todoItems: { type: Array },
-    deleteTodo: { type: Function },
-    toggleTodo: { type: Function },
+  },
+  methods: {
+    toggleTodo(idx) {
+      this.$emit("toggleTodo", idx);
+    },
+    deleteTodo(idx) {
+      this.$emit("deleteTodo", idx);
+    },
   },
 };
 </script>
