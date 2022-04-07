@@ -1,14 +1,14 @@
 <template>
   <ul class="TodoList">
     <li
-      v-for="({ content, isDone }, idx) in todoItems"
-      :key="idx"
+      v-for="{ content, isDone, id } in todoItems"
+      :key="id"
       :class="{ isDone }"
     >
       <span>{{ content }}</span>
       <div>
-        <button @click="() => toggleTodo(idx)">✅</button>
-        <button @click="() => deleteTodo(idx)">❌</button>
+        <button @click="() => toggleTodo(id)">✅</button>
+        <button @click="() => deleteTodo(id)">❌</button>
       </div>
     </li>
   </ul>
@@ -21,11 +21,11 @@ export default {
     todoItems: { type: Array },
   },
   methods: {
-    toggleTodo(idx) {
-      this.$emit("toggleTodo", idx);
+    toggleTodo(id) {
+      this.$emit("toggleTodo", id);
     },
-    deleteTodo(idx) {
-      this.$emit("deleteTodo", idx);
+    deleteTodo(id) {
+      this.$emit("deleteTodo", id);
     },
   },
 };

@@ -14,6 +14,8 @@
 import TodoInput from "./components/TodoInput.vue";
 import TodoList from "./components/TodoList.vue";
 
+let id = 0;
+
 export default {
   name: "App",
   components: {
@@ -27,14 +29,14 @@ export default {
   },
   methods: {
     pushTodo(todo) {
-      this.todoItems.push({ content: todo, isDone: false });
+      this.todoItems.push({ content: todo, isDone: false, id: id++ });
     },
-    deleteTodo(todoIdx) {
-      this.todoItems = this.todoItems.filter((_, index) => index != todoIdx);
+    deleteTodo(targetId) {
+      this.todoItems = this.todoItems.filter(({ id }) => id != targetId);
     },
-    toggleTodo(todoIdx) {
-      this.todoItems = this.todoItems.map((item, index) => {
-        if (index != todoIdx) {
+    toggleTodo(targetId) {
+      this.todoItems = this.todoItems.map((item) => {
+        if (item.id != targetId) {
           return item;
         }
         return { ...item, isDone: !item.isDone };
