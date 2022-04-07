@@ -1,8 +1,12 @@
 <template>
   <div id="app">
     <h1>This is todo list for studying vue</h1>
-    <TodoInput v-bind:pushTodo="pushTodo" />
-    <TodoList v-bind:todoItems="todoItems" v-bind:deleteTodo="deleteTodo" />
+    <TodoInput :pushTodo="pushTodo" />
+    <TodoList
+      :todoItems="todoItems"
+      :deleteTodo="deleteTodo"
+      :toggleTodo="toggleTodo"
+    />
   </div>
 </template>
 
@@ -23,10 +27,18 @@ export default {
   },
   methods: {
     pushTodo(todo) {
-      this.todoItems.push(todo);
+      this.todoItems.push({ content: todo, isDone: false });
     },
     deleteTodo(todoIdx) {
       this.todoItems = this.todoItems.filter((_, index) => index != todoIdx);
+    },
+    toggleTodo(todoIdx) {
+      this.todoItems = this.todoItems.map((item, index) => {
+        if (index != todoIdx) {
+          return item;
+        }
+        return { ...item, isDone: !item.isDone };
+      });
     },
   },
 };
