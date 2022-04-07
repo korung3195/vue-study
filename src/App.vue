@@ -1,9 +1,15 @@
 <template>
   <div id="app">
-    <h1>This is todo list for studying vue</h1>
+    <h1>Todo app for studying vue</h1>
+    <TodoMenu
+      :todoItems="todoItems"
+      :filterStatus="filterStatus"
+      @changeFilterStatus="changeFilterStatus"
+    />
     <TodoInput :pushTodo="pushTodo" />
     <TodoList
       :todoItems="todoItems"
+      :filterStatus="filterStatus"
       @toggleTodo="toggleTodo"
       @deleteTodo="deleteTodo"
     />
@@ -11,6 +17,7 @@
 </template>
 
 <script>
+import TodoMenu from "./components/TodoMenu.vue";
 import TodoInput from "./components/TodoInput.vue";
 import TodoList from "./components/TodoList.vue";
 
@@ -19,12 +26,14 @@ let id = 0;
 export default {
   name: "App",
   components: {
+    TodoMenu,
     TodoInput,
     TodoList,
   },
   data() {
     return {
       todoItems: [],
+      filterStatus: "All",
     };
   },
   methods: {
@@ -41,6 +50,9 @@ export default {
         }
         return { ...item, isDone: !item.isDone };
       });
+    },
+    changeFilterStatus(status) {
+      this.filterStatus = status;
     },
   },
 };

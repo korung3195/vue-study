@@ -9,6 +9,7 @@
  
 <script>
 export default {
+  name: "TodoInput",
   props: {
     pushTodo: { type: Function },
   },
@@ -17,7 +18,6 @@ export default {
       todo: "",
     };
   },
-  name: "TodoInput",
   methods: {
     handleSubmit(e) {
       e.preventDefault();
@@ -28,5 +28,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+div {
+  padding: 20px;
+}
+input {
+  width: 250px;
+}
 </style>
