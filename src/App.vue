@@ -66,6 +66,30 @@ export default {
       return this.filteredTodoList.length;
     },
   },
+  beforeCreate() {
+    console.log("before create : App");
+  },
+  created() {
+    console.log("created : App");
+  },
+  beforeMount() {
+    console.log("before mount : App");
+  },
+  mounted() {
+    console.log("mounted : App");
+  },
+  beforeUpdate() {
+    console.log("before update : App");
+  },
+  updated() {
+    console.log("updated : App");
+  },
+  beforeDestroy() {
+    console.log("before destroy : App");
+  },
+  destroyed() {
+    console.log("destroyed : App");
+  },
 };
 </script>
 
