@@ -15,10 +15,15 @@
 </template>  
  
 <script>
+import useLifeCycle from "../hooks/useLifeCycle";
+
 export default {
   name: "TodoList",
   props: {
     todoItems: { type: Array },
+  },
+  setup() {
+    useLifeCycle("TodoList");
   },
   methods: {
     toggleTodo(id) {
@@ -27,30 +32,6 @@ export default {
     deleteTodo(id) {
       this.$emit("deleteTodo", id);
     },
-  },
-  beforeCreate() {
-    console.log("before create : TodoList");
-  },
-  created() {
-    console.log("created : TodoList");
-  },
-  beforeMount() {
-    console.log("before mount : TodoList");
-  },
-  mounted() {
-    console.log("mounted : TodoList");
-  },
-  beforeUpdate() {
-    console.log("before update : TodoList");
-  },
-  updated() {
-    console.log("updated : TodoList");
-  },
-  beforeDestroy() {
-    console.log("before destroy : TodoList");
-  },
-  destroyed() {
-    console.log("destroyed : TodoList");
   },
 };
 </script>

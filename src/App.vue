@@ -7,8 +7,7 @@
     />
     <TodoInput :pushTodo="pushTodo" />
     <TodoList
-      :todoItems="filteredTodoList"
-      :filterStatus="filterStatus"
+      :todoItems="filteredTodoItems"
       @toggleTodo="toggleTodo"
       @deleteTodo="deleteTodo"
     />
@@ -19,8 +18,9 @@
 import TodoMenu from "./components/TodoMenu.vue";
 import TodoInput from "./components/TodoInput.vue";
 import TodoList from "./components/TodoList.vue";
-
-let id = 0;
+import useLifeCycle from "./hooks/useLifeCycle";
+import useTodoItems from "./hooks/useTodoItems";
+import useFilterTodoItems from "./hooks/useFilterTodoItems";
 
 export default {
   name: "App",
@@ -29,66 +29,20 @@ export default {
     TodoInput,
     TodoList,
   },
-  data() {
+  setup() {
+    useLifeCycle("App");
+    const { todoItems, pushTodo, deleteTodo, toggleTodo } = useTodoItems();
+    const { filteredTodoItems, totalCount, changeFilterStatus } =
+      useFilterTodoItems(todoItems);
+
     return {
-      todoItems: [],
-      filterStatus: "All",
+      filteredTodoItems,
+      totalCount,
+      pushTodo,
+      deleteTodo,
+      toggleTodo,
+      changeFilterStatus,
     };
-  },
-  methods: {
-    pushTodo(todo) {
-      this.todoItems.push({ content: todo, isDone: false, id: id++ });
-    },
-    deleteTodo(targetId) {
-      this.todoItems = this.todoItems.filter(({ id }) => id != targetId);
-    },
-    toggleTodo(targetId) {
-      this.todoItems = this.todoItems.map((item) => {
-        if (item.id != targetId) {
-          return item;
-        }
-        return { ...item, isDone: !item.isDone };
-      });
-    },
-    changeFilterStatus(status) {
-      this.filterStatus = status;
-    },
-  },
-  computed: {
-    filteredTodoList() {
-      return this.todoItems.filter(
-        ({ isDone }) =>
-          this.filterStatus === "All" ||
-          (this.filterStatus === "Done") === isDone
-      );
-    },
-    totalCount() {
-      return this.filteredTodoList.length;
-    },
-  },
-  beforeCreate() {
-    console.log("before create : App");
-  },
-  created() {
-    console.log("created : App");
-  },
-  beforeMount() {
-    console.log("before mount : App");
-  },
-  mounted() {
-    console.log("mounted : App");
-  },
-  beforeUpdate() {
-    console.log("before update : App");
-  },
-  updated() {
-    console.log("updated : App");
-  },
-  beforeDestroy() {
-    console.log("before destroy : App");
-  },
-  destroyed() {
-    console.log("destroyed : App");
   },
 };
 </script>
